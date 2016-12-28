@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Ca.Scta.Db", "Ca.Scta.Db\Ca.Scta.Db.sqlproj", "{B5C764B3-DD6E-45BA-B9DC-F5C434E2BD14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ca.Scta.Dal", "Ca.Scta.Dal\Ca.Scta.Dal.csproj", "{9BEDCF07-08C4-4473-A1CB-DCA5A59386AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ca.Scta.Api", "Ca.Scta.Api\Ca.Scta.Api.csproj", "{073CE8CB-5443-43A0-BBAF-A61E552303C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,14 @@ Global
 		{B5C764B3-DD6E-45BA-B9DC-F5C434E2BD14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5C764B3-DD6E-45BA-B9DC-F5C434E2BD14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5C764B3-DD6E-45BA-B9DC-F5C434E2BD14}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9BEDCF07-08C4-4473-A1CB-DCA5A59386AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BEDCF07-08C4-4473-A1CB-DCA5A59386AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BEDCF07-08C4-4473-A1CB-DCA5A59386AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BEDCF07-08C4-4473-A1CB-DCA5A59386AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{073CE8CB-5443-43A0-BBAF-A61E552303C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{073CE8CB-5443-43A0-BBAF-A61E552303C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{073CE8CB-5443-43A0-BBAF-A61E552303C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{073CE8CB-5443-43A0-BBAF-A61E552303C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
