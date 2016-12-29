@@ -58,12 +58,13 @@
     <Compile Include="Connection\DbConnectionAsync.cs" />
     <Compile Include="Connection\DbConnectionAsyncFactory.cs" />
     <Compile Include="Connection\IDbConnectionAsyncFactory.cs" />
-    <Compile Include="Cqrs\AddAppUser.cs" />
+    <Compile Include="Cqrs\AppUser\Commands\AddAppUserCommand.cs" />
     <Compile Include="Cqrs\Base\ICommandHandler.cs" />
-    <Compile Include="Cqrs\DeleteAppUser.cs" />
-    <Compile Include="Cqrs\GetAppUserByEmail.cs" />
-    <Compile Include="Cqrs\GetAppUserById.cs" />
-    <Compile Include="Cqrs\GetAppUserByUserName.cs" />
+    <Compile Include="Cqrs\AppUser\Commands\DeleteAppUser.cs" />
+    <Compile Include="Cqrs\AppUser\Queries\GetAppUserByEmail.cs" />
+    <Compile Include="Cqrs\AppUser\Queries\GetAppUserById.cs" />
+    <Compile Include="Cqrs\AppUser\Queries\GetAppUserByUserName.cs" />
+    <Compile Include="Cqrs\AppUser\Commands\UpdateAppUser.cs" />
     <Compile Include="Models\AppUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,6 +75,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

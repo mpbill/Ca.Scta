@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ca.Scta.Dal.Cqrs;
+using Ca.Scta.Dal.Cqrs.AppUser;
+using Ca.Scta.Dal.Cqrs.AppUser.Queries;
 using Ca.Scta.Dal.Cqrs.Base;
 using Microsoft.AspNet.Identity;
 

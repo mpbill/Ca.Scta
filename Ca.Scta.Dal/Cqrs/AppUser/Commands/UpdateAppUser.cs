@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ca.Scta.Dal.Cqrs.Base;
+﻿using System.Threading.Tasks;
 using Ca.Scta.Dal.Connection;
+using Ca.Scta.Dal.Cqrs.Base;
 using Dapper;
 
-namespace Ca.Scta.Dal.Cqrs
+namespace Ca.Scta.Dal.Cqrs.AppUser.Commands
 {
     public class UpdateAppUserCommand : ICommand
     {

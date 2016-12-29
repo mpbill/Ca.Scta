@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Ca.Scta.Dal.Connection;
 using Ca.Scta.Dal.Cqrs.Base;
-using Ca.Scta.Dal.Models;
 using Dapper;
 
-namespace Ca.Scta.Dal.Cqrs
+namespace Ca.Scta.Dal.Cqrs.AppUser.Commands
 {
-    public class AddAppUser : ICommand
+    public class AddAppUserCommand : ICommand
     {
-        public AddAppUser(string userName, string passwordHash, string securityStamp, string email, bool emailConfirmed)
+        public AddAppUserCommand(string userName, string passwordHash, string securityStamp, string email, bool emailConfirmed)
         {
             UserName = userName;
             PasswordHash = passwordHash;
@@ -28,7 +23,7 @@ namespace Ca.Scta.Dal.Cqrs
         public bool EmailConfirmed { get; private set; }
     }
 
-    public class AddAppUserCommandHandler : DapperCommandHandler<AddAppUser, int>
+    public class AddAppUserCommandHandler : DapperCommandHandler<AddAppUserCommand, int>
     {
         private readonly string _sql;
         public AddAppUserCommandHandler(IDbConnectionAsyncFactory factory) : base(factory)
@@ -54,7 +49,7 @@ namespace Ca.Scta.Dal.Cqrs
                     ";
         }
 
-        public override async Task<int> HandleAsync(AddAppUser command)
+        public override async Task<int> HandleAsync(AddAppUserCommand command)
         {
             int scopeIdentity;
             using (var conn = await Factory.GetOpenConnectionAsync())
@@ -63,7 +58,6 @@ namespace Ca.Scta.Dal.Cqrs
                 conn.Close();
             }
             return scopeIdentity;
-
         }
     }
 }

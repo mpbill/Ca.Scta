@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Ca.Scta.Dal.Connection;
 using Ca.Scta.Dal.Cqrs.Base;
 using Ca.Scta.Dal.Models;
 using Dapper;
 
-namespace Ca.Scta.Dal.Cqrs
+namespace Ca.Scta.Dal.Cqrs.AppUser.Queries
 {
     public class GetAppUserByEmailQuery : IQuery
     {
