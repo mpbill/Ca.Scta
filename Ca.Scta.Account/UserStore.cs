@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Ca.Scta.Dal.Cqrs;
 using Ca.Scta.Dal.Cqrs.AppUser;
+using Ca.Scta.Dal.Cqrs.AppUser.Commands;
 using Ca.Scta.Dal.Cqrs.AppUser.Queries;
 using Ca.Scta.Dal.Cqrs.Base;
+using Ca.Scta.Dal.Models;
 using Microsoft.AspNet.Identity;
 
 namespace Ca.Scta.Account
@@ -14,42 +16,100 @@ namespace Ca.Scta.Account
     
     class AppUserStore : IUserStore<AppUser,int>, IUserPasswordStore<AppUser, int>, IUserSecurityStampStore<AppUser,int>,IUserEmailStore<AppUser, int>
     {
-        private readonly IQueryHandler<GetAppUserByEmailQuery, Dal.Models.AppUserModel> _getApUserByEmailQueryHandler;
-        private Task<bool> _compleetedTask;
+        private readonly IQueryHandler<GetAppUserByEmailQuery,AppUserModel> _getApUserByEmailQueryHandler;
+        private readonly IQueryHandler<GetAppUserByIdQuery, AppUserModel> _getAppUserByIdQueryHandler;
+        private readonly IQueryHandler<GetAppUserByUserNameQuery, AppUserModel> _getAppUserByUserNameQueryHandler;
+        private readonly ICommandHandler<DeleteAppUserCommand, bool> _deleteAppUserCommandHandler;
+        private readonly ICommandHandler<AddAppUserCommand, int> _addAppUserCommandHandler;
+        private readonly ICommandHandler<UpdateAppUserCommand, bool> _updateAppUserCommandHandler;
+        private readonly Task<bool> _compleetedTask;
 
-        public AppUserStore(IQueryHandler<GetAppUserByEmailQuery,Ca.Scta.Dal.Models.AppUserModel> getApUserByEmailQueryHandler)
+        public AppUserStore(
+            IQueryHandler<GetAppUserByEmailQuery,AppUserModel> getApUserByEmailQueryHandler,
+            IQueryHandler<GetAppUserByIdQuery,AppUserModel> getAppUserByIdQueryHandler,
+            IQueryHandler<GetAppUserByUserNameQuery,AppUserModel> getAppUserByUserNameQueryHandler,
+            ICommandHandler<DeleteAppUserCommand,bool> deleteAppUserCommandHandler,
+            ICommandHandler<AddAppUserCommand,int> addAppUserCommandHandler,
+            ICommandHandler<UpdateAppUserCommand,bool> updateAppUserCommandHandler)
         {
             _getApUserByEmailQueryHandler = getApUserByEmailQueryHandler;
+            _getAppUserByIdQueryHandler = getAppUserByIdQueryHandler;
+            _getAppUserByUserNameQueryHandler = getAppUserByUserNameQueryHandler;
+            _deleteAppUserCommandHandler = deleteAppUserCommandHandler;
+            _addAppUserCommandHandler = addAppUserCommandHandler;
+            _updateAppUserCommandHandler = updateAppUserCommandHandler;
             _compleetedTask = Task.FromResult(true);
         }
         public void Dispose()
         {
+            //nothing to dispose of.  
+        }
+
+        public async Task CreateAsync(AppUser user)
+        {
+            var command = new AddAppUserCommand(
+                user.UserName,
+                user.PasswordHash,
+                user.SecurityStamp,
+                user.Email,
+                user.EmailConfirmed);
+            int newId = await _addAppUserCommandHandler.HandleAsync(command);
+            if (newId == 0)
+            {
+                //todo: add 0 id check and logging.  maybe exception?
+            }
+            else
+            {
+                //not sure if i should set this here...
+                user.Id = newId;
+            }
+            
             
         }
 
-        public Task CreateAsync(AppUser user)
+        public async Task UpdateAsync(AppUser user)
         {
-            throw new NotImplementedException();
+            var command = new UpdateAppUserCommand(
+                user.Id,
+                user.UserName,
+                user.PasswordHash,
+                user.SecurityStamp,
+                user.Email,
+                user.EmailConfirmed
+                );
+            var success = await _updateAppUserCommandHandler.HandleAsync(command);
+            if (!success)
+            {
+                //todo: add success check and logging.
+            }
         }
 
-        public Task UpdateAsync(AppUser user)
+        public async Task DeleteAsync(AppUser user)
         {
-            throw new NotImplementedException();
+            var command = new DeleteAppUserCommand(user.Id);
+            var success = await _deleteAppUserCommandHandler.HandleAsync(command);
+            if (!success)
+            {
+                //todo: add success check and logging.
+            }
+
+
         }
 
-        public Task DeleteAsync(AppUser user)
+        public async Task<AppUser> FindByIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            var query = new GetAppUserByIdQuery(userId);
+            var appUserModel = await _getAppUserByIdQueryHandler.HandleAsync(query);
+            var appUser = ToAppUser(appUserModel);
+            return appUser;
         }
 
-        public Task<AppUser> FindByIdAsync(int userId)
+        public async Task<AppUser> FindByNameAsync(string userName)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<AppUser> FindByNameAsync(string userName)
-        {
-            return 
+            var query = new GetAppUserByUserNameQuery(userName);
+            var appUserModel = await _getAppUserByUserNameQueryHandler.HandleAsync(query);
+            var appUser = ToAppUser(appUserModel);
+            return appUser;
         }
 
         public Task SetPasswordHashAsync(AppUser user, string passwordHash)
@@ -105,13 +165,15 @@ namespace Ca.Scta.Account
 
         public async Task<AppUser> FindByEmailAsync(string email)
         {
+            
             var query = new GetAppUserByEmailQuery(email);
             var unMapped = await _getApUserByEmailQueryHandler.HandleAsync(query);
-            var mapped = ToIAppUser(unMapped);
+            //todo:maybe add null check.
+            var mapped = ToAppUser(unMapped);
             return mapped;
         }
 
-        private AppUser ToIAppUser(Ca.Scta.Dal.Models.AppUserModel appUserModel)
+        private AppUser ToAppUser(AppUserModel appUserModel)
         {
             if(appUserModel==null)
                 return null;
@@ -121,10 +183,27 @@ namespace Ca.Scta.Account
                 SecurityStamp = appUserModel.SecurityStamp,
                 PasswordHash = appUserModel.PasswordHash,
                 EmailConfirmed = appUserModel.EmailConfirmed,
-                UserName = appUserModel.UserName
+                UserName = appUserModel.UserName,
+                Id = appUserModel.Id
             };
             return mapped;
             
+        }
+        private AppUserModel ToAppUserModel(AppUser appUser)
+        {
+            if (appUser == null)
+                return null;
+            var mapped = new AppUserModel
+            {
+                Email = appUser.Email,
+                SecurityStamp = appUser.SecurityStamp,
+                PasswordHash = appUser.PasswordHash,
+                EmailConfirmed = appUser.EmailConfirmed,
+                UserName = appUser.UserName,
+                Id = appUser.Id
+            };
+            return mapped;
+
         }
     }
 }
