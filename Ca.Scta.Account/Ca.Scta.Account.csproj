@@ -62,9 +62,13 @@
   <ItemGroup>
     <Compile Include="AppUser.cs" />
     <Compile Include="AppUserClaimsIdentityFactory.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="AppUserIdentity.cs" />
+    <Compile Include="AppUserTokenService.cs" />
     <Compile Include="IAppUserClaimsIdentityFactory.cs" />
+    <Compile Include="IAppUserTokenService.cs" />
+    <Compile Include="ISigningCredentialsFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SigningCredentialsFactory.cs" />
     <Compile Include="UserStore.cs" />
   </ItemGroup>
   <ItemGroup>
