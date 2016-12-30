@@ -63,6 +63,7 @@
     <Compile Include="AppUser.cs" />
     <Compile Include="AppUserClaimsIdentityFactory.cs" />
     <Compile Include="AppUserIdentity.cs" />
+    <Compile Include="AppUserManager.cs" />
     <Compile Include="AppUserTokenService.cs" />
     <Compile Include="IAppUserClaimsIdentityFactory.cs" />
     <Compile Include="IAppUserTokenService.cs" />
