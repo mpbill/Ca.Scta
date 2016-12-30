@@ -9,6 +9,28 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Ca.Scta.Account
 {
+    public class ValidTokenResult
+    {
+        private ValidTokenResult(bool isValid, ClaimsPrincipal claimsPrincipal, SecurityToken securityToken)
+        {
+            IsValid = isValid;
+            ClaimsPrincipal = claimsPrincipal;
+            SecurityToken = securityToken;
+        }
+
+        public static ValidTokenResult ValidToken(ClaimsPrincipal principal, SecurityToken token)
+        {
+            return new ValidTokenResult(true,principal,token);
+        }
+
+        public static ValidTokenResult InValidToken()
+        {
+            return new ValidTokenResult(false,null,null);
+        }
+        public bool IsValid { get; private set; }
+        public ClaimsPrincipal ClaimsPrincipal { get; private set; }
+        public SecurityToken SecurityToken { get; private set; }
+    }
     public class AppUserTokenService : IAppUserTokenService
     {
         private readonly TokenValidationParameters _validationParameters;
@@ -30,16 +52,27 @@ namespace Ca.Scta.Account
                 ValidIssuer = _tokenIssuer,
                 ValidateLifetime = true,
                 ValidateIssuer = true,
+                ValidateAudience = false
 
             };
         }
 
-        public ClaimsPrincipal ValidateToken(string token)
+        public ValidTokenResult ValidateToken(string token)
         {
             
             SecurityToken validatedToken;
-            var principal = _handler.ValidateToken(token, _validationParameters, out validatedToken);
-            return principal;
+            ClaimsPrincipal principal;
+
+            try
+            {
+                principal = _handler.ValidateToken(token, _validationParameters, out validatedToken);
+                return ValidTokenResult.ValidToken(principal,validatedToken);
+            }
+            catch
+            {
+                return ValidTokenResult.InValidToken();
+            }
+            
         }
         public string CreateTokenAsync(AppUser user)
         {

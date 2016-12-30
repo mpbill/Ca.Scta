@@ -37,17 +37,7 @@ namespace Ca.Scta.Dal.Cqrs.Base
 
         public abstract Task<TResult> HandleAsync(TCommand command);
     }
-    public abstract class EfCommandHandler<TCommand, TResult> : ICommandHandler<TCommand, TResult> where TCommand : ICommand
-    {
-        protected readonly Entities Context;
-
-        protected EfCommandHandler(Entities context)
-        {
-            Context = context;
-        }
-
-        public abstract Task<TResult> HandleAsync(TCommand command);
-    }
+    
     public abstract class DapperQueryHandler<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IQuery
     {
         protected readonly IDbConnectionAsyncFactory Factory;
@@ -59,15 +49,5 @@ namespace Ca.Scta.Dal.Cqrs.Base
 
         public abstract Task<TResult> HandleAsync(TQuery query);
     }
-    public abstract class EfQueryHandler<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IQuery
-    {
-        protected readonly Entities Context;
-
-        protected EfQueryHandler(Entities context)
-        {
-            Context = context;
-        }
-
-        public abstract Task<TResult> HandleAsync(TQuery query);
-    }
+    
 }
