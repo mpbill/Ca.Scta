@@ -32,7 +32,7 @@ namespace Ca.Scta.Api.AppStart
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             config.EnsureInitialized();
 
-            app.Use<TestMiddleware>();
+            app.Use<AppUserTokenAuthenticationMiddleware>(iocContainer.GetInstance<IAppUserTokenService>());
             app.UseWebApi(config);
             
             
