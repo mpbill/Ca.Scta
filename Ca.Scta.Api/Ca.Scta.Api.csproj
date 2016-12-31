@@ -95,6 +95,11 @@
   <ItemGroup>
     <Compile Include="AppStart\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CreateAccountViewModel.cs" />
+    <Compile Include="Controllers\IAccountController.cs" />
+    <Compile Include="Controllers\LoginViewModel.cs" />
+    <Compile Include="Controllers\TokenResponse.cs" />
+    <Compile Include="Controllers\UserInfoViewModel.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

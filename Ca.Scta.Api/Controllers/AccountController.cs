@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Ca.Scta.Account;
 using Microsoft.AspNet.Identity;
-using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
+
 namespace Ca.Scta.Api.Controllers
 {
-    public interface IAccountController { }
     [RoutePrefix("Account")]
     public class AccountController : ApiController, IAccountController
     {
@@ -67,47 +67,20 @@ namespace Ca.Scta.Api.Controllers
         [Authorize]
         public async Task<IHttpActionResult> GetUserInfo()
         {
-            return Ok();
-        }
 
-        [HttpGet, Route("AuthenticationTest"), Authorize]
-        public async Task<IHttpActionResult> AuthenticationTest()
-        {
-            return Ok("You Are Authenticated");
-        }
-    }
-
-    public class TokenResponse
-    {
-        public TokenResponse(string token)
-        {
-            Token = token;
-        }
-
-        public TokenResponse()
-        {
+            var claimsPrincipal = User as ClaimsPrincipal;
+            int id = 0;
+            if (claimsPrincipal != null) 
+                Int32.TryParse(claimsPrincipal.Claims.FirstOrDefault(claim => claim.Type=="UserId")?.Value,out id);
+            if (id == 0)
+                return NotFound();
+            var appUser = await _userManager.FindByIdAsync(id);
+            if (appUser == null)
+                return NotFound();
             
+            var userInfo = new UserInfoViewModel(appUser);
+            
+            return Ok(userInfo);
         }
-        public string Token { get; set; }
-
-    }
-
-    public class LoginViewModel
-    {
-        [Required]
-        public string UserName { get; set; }
-        [Required]
-        public string Password { get; set; }
-    }
-
-    public class CreateAccountViewModel
-    {
-        [Required]
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        [Required]
-        public string Password { get; set; }
-        [Required, Compare(otherProperty: "Password", ErrorMessage = "Passwords Must Be The Same")]
-        public string ConfirmPassword { get; set; }
     }
 }

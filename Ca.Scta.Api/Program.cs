@@ -25,7 +25,7 @@ namespace Ca.Scta.Api
                 var loginModel = new LoginViewModel {UserName = "Admin", Password = "password"};
                 var tokenResp = Post("Account/Login",loginModel);
                 var tokenRespObj = DeSerialize<TokenResponse>(tokenResp);
-                GetAuth("Account/AuthenticationTest", tokenRespObj.Token);
+                GetAuth("Account/UserInfo", tokenRespObj.Token);
 
             }
             Console.ReadLine();
