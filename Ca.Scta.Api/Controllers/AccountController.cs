@@ -62,6 +62,19 @@ namespace Ca.Scta.Api.Controllers
                 return Unauthorized();
             }
         }
+        [Route("UserInfo")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetUserInfo()
+        {
+            return Ok();
+        }
+
+        [HttpGet, Route("AuthenticationTest"), Authorize]
+        public async Task<IHttpActionResult> AuthenticationTest()
+        {
+            return Ok("You Are Authenticated");
+        }
     }
 
     public class TokenResponse
@@ -71,7 +84,11 @@ namespace Ca.Scta.Api.Controllers
             Token = token;
         }
 
-        public string Token { get; private set; }
+        public TokenResponse()
+        {
+            
+        }
+        public string Token { get; set; }
 
     }
 
