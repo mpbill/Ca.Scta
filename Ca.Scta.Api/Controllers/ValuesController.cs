@@ -12,11 +12,21 @@ namespace Ca.Scta.Api.Controllers
     {
         [HttpGet]
         [Route("{t}")]
-        public async Task<IHttpActionResult> GetValues(int t)
+        public IHttpActionResult GetValues(int t)
         {
-            await Task.Delay(1000*t);
+            
 
-            var value = $"It has been {t} seconds.";
+            var value = $"{t}";
+            return Ok(value);
+        }
+        [HttpGet]
+        [Authorize]
+        [Route("authenticated/{t}")]
+        public IHttpActionResult GetAuthenticatedValuesValues(int t)
+        {
+
+
+            var value = $"authenticated {t}";
             return Ok(value);
         }
     }

@@ -21,7 +21,7 @@ namespace Ca.Scta.Dal.Cqrs.AppUser.Queries
         private readonly string _sql;
         public GetAppUserByUserNameQueryHandler(IDbConnectionAsyncFactory factory) : base(factory)
         {
-            _sql = @"SELECT TOP 1 FROM AppUsers WHERE UserName=@UserName";
+            _sql = @"SELECT TOP 1 * FROM AppUsers WHERE UserName=@UserName";
         }
 
         private class Parameter

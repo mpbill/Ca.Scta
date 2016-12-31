@@ -12,5 +12,7 @@ namespace Ca.Scta.Account
         public AppUserManager(IUserStore<AppUser, int> store) : base(store)
         {
         }
+        
     }
+    
 }

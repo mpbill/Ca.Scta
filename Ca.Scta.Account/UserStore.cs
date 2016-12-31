@@ -13,8 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Ca.Scta.Account
 {
-    
-    class AppUserStore : IUserStore<AppUser,int>, IUserPasswordStore<AppUser, int>, IUserSecurityStampStore<AppUser,int>,IUserEmailStore<AppUser, int>
+    public class AppUserStore : IUserStore<AppUser,int>, IUserPasswordStore<AppUser, int>, IUserSecurityStampStore<AppUser,int>,IUserEmailStore<AppUser, int>
     {
         private readonly IQueryHandler<GetAppUserByEmailQuery,AppUserModel> _getApUserByEmailQueryHandler;
         private readonly IQueryHandler<GetAppUserByIdQuery, AppUserModel> _getAppUserByIdQueryHandler;
@@ -25,12 +24,12 @@ namespace Ca.Scta.Account
         private readonly Task<bool> _compleetedTask;
 
         public AppUserStore(
-            IQueryHandler<GetAppUserByEmailQuery,AppUserModel> getApUserByEmailQueryHandler,
-            IQueryHandler<GetAppUserByIdQuery,AppUserModel> getAppUserByIdQueryHandler,
-            IQueryHandler<GetAppUserByUserNameQuery,AppUserModel> getAppUserByUserNameQueryHandler,
-            ICommandHandler<DeleteAppUserCommand,bool> deleteAppUserCommandHandler,
-            ICommandHandler<AddAppUserCommand,int> addAppUserCommandHandler,
-            ICommandHandler<UpdateAppUserCommand,bool> updateAppUserCommandHandler)
+            DapperQueryHandler<GetAppUserByEmailQuery,AppUserModel> getApUserByEmailQueryHandler,
+            DapperQueryHandler<GetAppUserByIdQuery,AppUserModel> getAppUserByIdQueryHandler,
+            DapperQueryHandler<GetAppUserByUserNameQuery,AppUserModel> getAppUserByUserNameQueryHandler,
+            DapperCommandHandler<DeleteAppUserCommand,bool> deleteAppUserCommandHandler,
+            DapperCommandHandler<AddAppUserCommand,int> addAppUserCommandHandler,
+            DapperCommandHandler<UpdateAppUserCommand,bool> updateAppUserCommandHandler)
         {
             _getApUserByEmailQueryHandler = getApUserByEmailQueryHandler;
             _getAppUserByIdQueryHandler = getAppUserByIdQueryHandler;
