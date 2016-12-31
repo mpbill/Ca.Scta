@@ -1,4 +1,4 @@
-﻿namespace Ca.Scta.Api.Controllers
+﻿namespace Ca.Scta.Api.Controllers.Account
 {
     public interface IAccountController { }
 }

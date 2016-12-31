@@ -94,16 +94,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppStart\Startup.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CreateAccountViewModel.cs" />
-    <Compile Include="Controllers\IAccountController.cs" />
-    <Compile Include="Controllers\LoginViewModel.cs" />
-    <Compile Include="Controllers\TokenResponse.cs" />
-    <Compile Include="Controllers\UserInfoViewModel.cs" />
+    <Compile Include="Controllers\Account\AccountController.cs" />
+    <Compile Include="Controllers\Account\Models\CreateAccountViewModel.cs" />
+    <Compile Include="Controllers\Account\IAccountController.cs" />
+    <Compile Include="Controllers\Account\Models\LoginViewModel.cs" />
+    <Compile Include="Controllers\Account\Models\TokenResponse.cs" />
+    <Compile Include="Controllers\Account\Models\UserInfoViewModel.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AppUserTokenAuthenticationMiddleware.cs" />
+    <Compile Include="Middleware\AppUserTokenAuthenticationMiddleware.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -119,6 +119,7 @@
       <Name>Ca.Scta.Dal</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

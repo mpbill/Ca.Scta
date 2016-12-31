@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Ca.Scta.Account;
 using Ca.Scta.Api.Controllers;
+using Ca.Scta.Api.Controllers.Account;
+using Ca.Scta.Api.Middleware;
 using Ca.Scta.Dal.Connection;
 using Ca.Scta.Dal.Cqrs.AppUser.Commands;
 using Ca.Scta.Dal.Cqrs.AppUser.Queries;

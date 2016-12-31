@@ -8,12 +8,14 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Ca.Scta.Api.Controllers;
+using Ca.Scta.Api.Controllers.Account;
+using Ca.Scta.Api.Controllers.Account.Models;
 using Microsoft.Owin.Hosting;
 using Newtonsoft.Json;
 
 namespace Ca.Scta.Api
 {
-    class Program
+    class Server
     {
         private static string baseAddress;
         static void Main(string[] args)

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Ca.Scta.Api.Controllers
+namespace Ca.Scta.Api.Controllers.Account.Models
 {
     public class LoginViewModel
     {

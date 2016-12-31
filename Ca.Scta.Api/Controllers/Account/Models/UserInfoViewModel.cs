@@ -1,6 +1,6 @@
 ﻿using Ca.Scta.Account;
 
-namespace Ca.Scta.Api.Controllers
+namespace Ca.Scta.Api.Controllers.Account.Models
 {
     public class UserInfoViewModel
     {

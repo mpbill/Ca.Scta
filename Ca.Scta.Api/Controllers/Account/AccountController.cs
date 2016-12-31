@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Ca.Scta.Account;
+using Ca.Scta.Api.Controllers.Account.Models;
 using Microsoft.AspNet.Identity;
-using System.Security.Claims;
+using TokenResponse = Ca.Scta.Api.Controllers.Account.Models.TokenResponse;
+using UserInfoViewModel = Ca.Scta.Api.Controllers.Account.Models.UserInfoViewModel;
 
-namespace Ca.Scta.Api.Controllers
+namespace Ca.Scta.Api.Controllers.Account
 {
     [RoutePrefix("Account")]
     public class AccountController : ApiController, IAccountController
