@@ -100,6 +100,9 @@
     <Compile Include="Controllers\Account\Models\LoginViewModel.cs" />
     <Compile Include="Controllers\Account\Models\TokenResponse.cs" />
     <Compile Include="Controllers\Account\Models\UserInfoViewModel.cs" />
+    <Compile Include="Controllers\Contacts\ContactsController.cs" />
+    <Compile Include="Controllers\Contacts\CreateContactViewModel.cs" />
+    <Compile Include="Controllers\Contacts\CreatedResultModel.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Middleware\AppUserTokenAuthenticationMiddleware.cs" />

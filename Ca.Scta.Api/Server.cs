@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Ca.Scta.Api.Controllers;
 using Ca.Scta.Api.Controllers.Account;
 using Ca.Scta.Api.Controllers.Account.Models;
+using Ca.Scta.Api.Controllers.Contacts;
 using Microsoft.Owin.Hosting;
 using Newtonsoft.Json;
 
@@ -27,7 +28,7 @@ namespace Ca.Scta.Api
                 var loginModel = new LoginViewModel {UserName = "Admin", Password = "password"};
                 var tokenResp = Post("Account/Login",loginModel);
                 var tokenRespObj = DeSerialize<TokenResponse>(tokenResp);
-                GetAuth("Account/UserInfo", tokenRespObj.Token);
+                HttpAuth("Contacts", tokenRespObj.Token, GetCreateContactViewModel(),HttpMethod.Post);
 
             }
             Console.ReadLine();
@@ -41,6 +42,17 @@ namespace Ca.Scta.Api
             return deserialized;
         }
 
+        static CreateContactViewModel GetCreateContactViewModel()
+        {
+            return new CreateContactViewModel
+            {
+                City = "Austin",
+                Description = "Manages This Website.",
+                Email = "internet@ca-scta.org",
+                Name = "Michael B.",
+                Position = "Internet Chair"
+            };
+        }
         static CreateAccountViewModel GetCreateAccountViewModel()
         {
             return new CreateAccountViewModel
@@ -62,6 +74,21 @@ namespace Ca.Scta.Api
             Console.WriteLine(stringResp);
             return stringResp;
 
+        }
+
+        static string HttpAuth<T>(string route, string token,T body, HttpMethod method)
+        {
+            var fullAddress = baseAddress + route;
+            var client = new HttpClient();
+            var requestMessage = new HttpRequestMessage(method, fullAddress);
+            requestMessage.Headers.Add("Authorization", $"Bearer {token}");
+            requestMessage.Content = new ObjectContent<T>(body, new JsonMediaTypeFormatter());
+            var response = client.SendAsync(requestMessage);
+           
+            Console.WriteLine(response.Result.StatusCode);
+            var stringResp = response.Result.Content.ReadAsStringAsync().Result;
+            Console.WriteLine(stringResp);
+            return stringResp;
         }
 
         static void GetAuth(string route, string token)

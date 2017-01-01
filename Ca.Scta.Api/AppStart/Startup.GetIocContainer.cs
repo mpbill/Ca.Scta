@@ -9,6 +9,7 @@ using Ca.Scta.Dal.Connection;
 using Ca.Scta.Dal.Cqrs.AppUser.Commands;
 using Ca.Scta.Dal.Cqrs.AppUser.Queries;
 using Ca.Scta.Dal.Cqrs.Base;
+using Ca.Scta.Dal.Cqrs.Contacts;
 using Ca.Scta.Dal.Models;
 using Microsoft.AspNet.Identity;
 using SimpleInjector;
@@ -29,6 +30,11 @@ namespace Ca.Scta.Api.AppStart
             container.Register<IAppUserClaimsIdentityFactory,AppUserClaimsIdentityFactory>(Lifestyle.Singleton);
             container.Register<ISigningCredentialsFactory,SigningCredentialsFactory>(Lifestyle.Singleton);
             container.Register<IAppUserTokenService,AppUserTokenService>(Lifestyle.Singleton);
+
+			//Contacts
+			container.Register<DapperCommandHandler<CreateContactCommand,GenericResult<int>>,CreateContactCommandHandler>(Lifestyle.Scoped);
+
+
 
             container.Register<DapperQueryHandler<GetAppUserByEmailQuery,AppUserModel>,GetAppUserByEmailQueryHandler>(Lifestyle.Scoped);
             container.Register<DapperQueryHandler<GetAppUserByIdQuery,AppUserModel>,GetAppUserByIdQueryHandler>(Lifestyle.Scoped);
