@@ -35,7 +35,8 @@ namespace Ca.Scta.Api.AppStart
 			container.Register<DapperCommandHandler<CreateContactCommand,GenericResult<int>>,CreateContactCommandHandler>(Lifestyle.Scoped);
 			container.Register<DapperQueryHandler<GetAllContactsQuery,List<Contact>>,GetAllContactsQueryHandler>(Lifestyle.Scoped);
 			container.Register<DapperQueryHandler<GetContactByIdQuery,Contact>,GetContactByIdQueryHandler>(Lifestyle.Scoped);
-
+            container.Register<DapperCommandHandler<UpdateContactByIdCommand,GenericResult<int>>,UpdateContactByIdCommandHandler>(Lifestyle.Scoped);
+            container.Register<DapperCommandHandler<DeleteContactByIdCommand,GenericResult<int>>,DeleteContactByIdCommandHandler>(Lifestyle.Scoped);
 
             container.Register<DapperQueryHandler<GetAppUserByEmailQuery,AppUserModel>,GetAppUserByEmailQueryHandler>(Lifestyle.Scoped);
             container.Register<DapperQueryHandler<GetAppUserByIdQuery,AppUserModel>,GetAppUserByIdQueryHandler>(Lifestyle.Scoped);
