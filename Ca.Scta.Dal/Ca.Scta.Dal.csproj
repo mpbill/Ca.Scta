@@ -65,6 +65,11 @@
     <Compile Include="Cqrs\AppUser\Queries\GetAppUserById.cs" />
     <Compile Include="Cqrs\AppUser\Queries\GetAppUserByUserName.cs" />
     <Compile Include="Cqrs\AppUser\Commands\UpdateAppUser.cs" />
+    <Compile Include="Cqrs\Contacts\Contact.cs" />
+    <Compile Include="Cqrs\Contacts\CreateContactCommand.cs" />
+    <Compile Include="Cqrs\Contacts\CreateContactCommandHandler.cs" />
+    <Compile Include="Cqrs\Base\ErrorReason.cs" />
+    <Compile Include="Cqrs\Base\GenericResult.cs" />
     <Compile Include="Models\AppUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

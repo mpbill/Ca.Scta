@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Compile Include="AppStart\Startup.GetIocContainer.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

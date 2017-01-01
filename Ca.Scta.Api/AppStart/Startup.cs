@@ -41,31 +41,5 @@ namespace Ca.Scta.Api.AppStart
         }
     }
 
-    public partial class Startup
-    {
-        public Container GetIocContainer()
-        {
-            var container = new Container();
-            container.Options.DefaultScopedLifestyle=new WebApiRequestLifestyle();
-            container.Register<UserManager<AppUser, int>,AppUserManager>(Lifestyle.Scoped);
-            
-            //controllers for test
-            container.Register<IAccountController,AccountController>(Lifestyle.Scoped);
-            container.Register<IAppUserClaimsIdentityFactory,AppUserClaimsIdentityFactory>(Lifestyle.Singleton);
-            container.Register<ISigningCredentialsFactory,SigningCredentialsFactory>(Lifestyle.Singleton);
-            container.Register<IAppUserTokenService,AppUserTokenService>(Lifestyle.Singleton);
-
-            container.Register<DapperQueryHandler<GetAppUserByEmailQuery,AppUserModel>,GetAppUserByEmailQueryHandler>(Lifestyle.Scoped);
-            container.Register<DapperQueryHandler<GetAppUserByIdQuery,AppUserModel>,GetAppUserByIdQueryHandler>(Lifestyle.Scoped);
-            container.Register<DapperQueryHandler<GetAppUserByUserNameQuery,AppUserModel>,GetAppUserByUserNameQueryHandler>(Lifestyle.Scoped);
-            container.Register<DapperCommandHandler<AddAppUserCommand,int>,AddAppUserCommandHandler>(Lifestyle.Scoped);
-            container.Register<DapperCommandHandler<DeleteAppUserCommand,bool>,DeleteAppUserCommandHandler>(Lifestyle.Scoped);
-            container.Register<DapperCommandHandler<UpdateAppUserCommand,bool>,UpdateAppUserCommandHandler>(Lifestyle.Scoped);
-            container.Register<IUserStore<AppUser, int>, AppUserStore>(Lifestyle.Scoped);
-            container.Register<IDbConnectionAsyncFactory,DbConnectionAsyncFactory>(Lifestyle.Singleton);
-            
-            container.Verify();
-            return container;
-        }
-    }
+    
 }
