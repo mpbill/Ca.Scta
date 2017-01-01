@@ -70,6 +70,10 @@
     <Compile Include="Cqrs\Contacts\CreateContactCommandHandler.cs" />
     <Compile Include="Cqrs\Base\ErrorReason.cs" />
     <Compile Include="Cqrs\Base\GenericResult.cs" />
+    <Compile Include="Cqrs\Contacts\GetAllContactsQuery.cs" />
+    <Compile Include="Cqrs\Contacts\GetAllContactsQueryHandler.cs" />
+    <Compile Include="Cqrs\Contacts\GetContactByIdQuery.cs" />
+    <Compile Include="Cqrs\Contacts\GetContactByIdQueryHandler.cs" />
     <Compile Include="Models\AppUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
