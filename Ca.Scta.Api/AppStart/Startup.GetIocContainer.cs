@@ -33,7 +33,8 @@ namespace Ca.Scta.Api.AppStart
 
 			//Contacts
 			container.Register<DapperCommandHandler<CreateContactCommand,GenericResult<int>>,CreateContactCommandHandler>(Lifestyle.Scoped);
-
+			container.Register<DapperQueryHandler<GetAllContactsQuery,List<Contact>>,GetAllContactsQueryHandler>(Lifestyle.Scoped);
+			container.Register<DapperQueryHandler<GetContactByIdQuery,Contact>,GetContactByIdQueryHandler>(Lifestyle.Scoped);
 
 
             container.Register<DapperQueryHandler<GetAppUserByEmailQuery,AppUserModel>,GetAppUserByEmailQueryHandler>(Lifestyle.Scoped);
