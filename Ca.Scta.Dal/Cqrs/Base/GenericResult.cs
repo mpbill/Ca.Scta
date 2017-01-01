@@ -9,7 +9,7 @@ namespace Ca.Scta.Dal.Cqrs.Base
         public T Data { get; private set; }
         public bool Succeeded { get; private set; }
 
-        private GenericResult(T data, bool succeeded, ErrorReason? errorReason)
+        protected GenericResult(T data, bool succeeded, ErrorReason? errorReason)
         {
             Data = data;
             Succeeded = succeeded;
@@ -44,5 +44,11 @@ namespace Ca.Scta.Dal.Cqrs.Base
             return errorString;
         }
         
+    }
+    
+    public class GenericIntResult : GenericResult<int> {
+        public GenericIntResult(int data, bool succeeded, ErrorReason? errorReason) : base(data, succeeded, errorReason)
+        {
+        }
     }
 }

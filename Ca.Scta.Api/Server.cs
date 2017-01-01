@@ -24,16 +24,34 @@ namespace Ca.Scta.Api
             baseAddress = "http://localhost:9000/";
             using (WebApp.Start<AppStart.Startup>(baseAddress))
             {
-                var client = new HttpClient();
-                var loginModel = new LoginViewModel {UserName = "Admin", Password = "password"};
-                var tokenResp = Post("Account/Login",loginModel);
-                var tokenRespObj = DeSerialize<TokenResponse>(tokenResp);
-                HttpAuth("Contacts", tokenRespObj.Token, GetCreateContactViewModel(),HttpMethod.Post);
+
+                Get("Contacts");
+                Get("Contacts/1");
+
 
             }
             Console.ReadLine();
         }
 
+        static string GetToken()
+        {
+            var client = new HttpClient();
+            var loginModel = new LoginViewModel { UserName = "Admin", Password = "password" };
+            var tokenResp = Post("Account/Login", loginModel);
+            var tokenRespObj = DeSerialize<TokenResponse>(tokenResp);
+            return tokenRespObj.Token;
+        }
+
+        static string Get(string route)
+        {
+            var fullAddress = baseAddress + route;
+            var client = new HttpClient();
+            var response = client.GetAsync(fullAddress);
+            var responseString = response.Result.Content.ReadAsStringAsync().Result;
+            Console.WriteLine(response.Result.StatusCode);
+            Console.WriteLine(responseString);
+            return responseString;
+        }
         static T DeSerialize<T>(string s)
         {
             StringReader sr = new StringReader(s);
@@ -102,15 +120,6 @@ namespace Ca.Scta.Api
             var stringResp = response.Result.Content.ReadAsStringAsync().Result;
             Console.WriteLine(stringResp);
         }
-        static void Get(string route)
-        {
-
-            var fullAddress = baseAddress + route;
-            var client = new HttpClient();
-            var response = client.GetAsync(fullAddress);
-            Console.WriteLine(response.Result.StatusCode);
-            Console.WriteLine(response.Result.Content.ReadAsStringAsync().Result);
-
-        }
+        
     }
 }
